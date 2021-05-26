@@ -1,0 +1,62 @@
+.form__label
+  display: flex
+  -webkit-box-align: center
+  align-items: center
+  font-size: 16px
+  line-height: 20px
+  color: rgb(152, 161, 179)
+  margin-bottom: 6px
+
+  &-title
+    display: inline-block
+
+.form__input
+  display: block
+  position: relative
+  margin-bottom: 0px
+
+  &-box
+    border-radius: 3px
+    padding: 11px 16px
+    width: 100%
+    display: block
+    caret-color: rgb(33, 150, 243)
+    background-color: rgb(242, 245, 250)
+    outline: none
+    border: 0px
+    color: rgb(38, 43, 51)
+    pointer-events: unset
+    transition: color 0.1s ease 0s
+
+  &-indicator
+    position: absolute
+    bottom: 0px
+    left: 0px
+    right: 0px
+    height: 2px
+    background-color: rgb(33, 150, 243)
+    border-radius: 0px 0px 2px 2px
+    pointer-events: none
+    opacity: 0
+    transform: scaleX(1)
+
+
+.form__select
+  background: #f2f5fa
+  position: absolute
+  z-index: 1
+  width: 253px
+
+  &-list
+    text-decoration: none
+    list-style: none
+    height: 118px
+    overflow-y: auto
+    padding: initial !important
+
+    &_item
+      cursor: pointer
+      padding: 5px 16px
+
+      &:hover
+        background: rgba(230, 244, 255, 0.5)
