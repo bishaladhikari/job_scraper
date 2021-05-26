@@ -11,17 +11,7 @@
             color="grey darken-1"
             size="32"
         ></v-avatar>
-
-        <v-btn
-            v-for="link in links"
-            :key="link"
-            text
-        >
-          {{ link }}
-        </v-btn>
-
         <v-spacer></v-spacer>
-
         <v-responsive max-width="260">
           <v-text-field
               dense
@@ -62,7 +52,7 @@
                   </label>
                   <div class="form__input">
                     <input
-                        v-model="form.job_title"
+                        v-model="form.title"
                         placeholder="Enter Job Title"
                         autocomplete="off"
                         name="title"
@@ -79,7 +69,7 @@
                     <input
                         type="text"
                         v-model="form.loc"
-                        placeholder="Enter Location"
+                        placeholder="Eg: uae,dubai"
                         autocomplete="off"
                         name="location"
                         class="form__input-box"
@@ -103,20 +93,6 @@
                   </div>
                 </div>
                 <v-btn block color="primary" @click.prevent="addOnRoute">Search</v-btn>
-                <div class="col-md-12 col-sm-12">
-                  <label class="form__label">
-                    <div class="form_label-title">Copy Url</div>
-                  </label>
-                  <div class="form__input">
-                    <input
-                        placeholder="Enter keywords or leave blank"
-                        autocomplete="off"
-                        name="keywords"
-                        class="form__input-box"
-                    />
-                    <div class="form__input-indicator"></div>
-                  </div>
-                </div>
               </v-card-text>
             </v-sheet>
           </v-col>
@@ -139,6 +115,13 @@
                 </v-btn>
               </v-card-title>
               <v-card-text style="position: relative">
+                <v-progress-linear
+                    v-if="showLoading"
+                    color="primary accent-4"
+                    indeterminate
+                    rounded
+                    height="6"
+                ></v-progress-linear>
                 <v-data-table
                     :headers="headers"
                     :items="excelData"
@@ -196,12 +179,6 @@ const axios = require('axios').default;
 
 export default {
   data: () => ({
-    links: [
-      'Dashboard',
-      'Messages',
-      'Profile',
-      'Updates',
-    ],
     page: 1,
     pageCount: 0,
     itemsPerPage: 10,
@@ -212,10 +189,9 @@ export default {
     ],
     form: {
       domain: '',
-      job_title: '',
+      title: '',
       loc: '',
       keywords: '',
-      url: ''
     },
     exportLink: '',
     excelData: [],
@@ -233,17 +209,18 @@ export default {
       {text: 'Salary', value: 'Salary'},
       {text: 'Summary', value: 'Summary'},
     ],
+    showLoading: false,
   }),
   methods: {
     addOnRoute() {
-      if (this.form.job_title !== this.$route.query.job_title ||
+      if (this.form.title !== this.$route.query.title ||
           this.form.loc !== this.$route.query.loc ||
           this.form.keywords !== this.$route.query.keywords ||
           this.form.domain !== this.$route.query.domain) {
         this.$router.push({
           query: {
             ...this.$route.query,
-            'job_title': this.form.job_title,
+            'title': this.form.title,
             'loc': this.form.loc,
             'keywords': this.form.keywords,
             'domain': this.form.domain
@@ -253,6 +230,7 @@ export default {
       this.getJobListing();
     },
     getJobListing() {
+      this.showLoading = true;
       let config = {
         headers: {
           'Access-Control-Allow-Origin': '*',
@@ -261,18 +239,18 @@ export default {
         params: {...this.form},
         responseType: 'arraybuffer'
       }
+      this.excelData = [];
+      this.exportLink = '';
       axios.get(`https://scrapejobs.herokuapp.com/`, config)
           .then(response => {
                 let blobn = new Blob([response.data], {type: 'vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8'});
                 this.excelExport(blobn);
                 let fileURL = window.URL.createObjectURL(new Blob([response.data]));
-                let fileLink = document.createElement('a');
-                fileLink.href = fileURL;
-                fileLink.setAttribute('download', 'job.xlsx');
-                document.body.appendChild(fileLink);
                 this.exportLink = fileURL;
               }
-          )
+          ).finally(() => {
+        this.showLoading = false;
+      })
     },
     excelExport(file) {
       let input = file;
@@ -297,7 +275,7 @@ export default {
   },
   mounted() {
     if (this.$route.query) {
-      this.form.job_title = this.$route.query.job_title ? this.$route.query.job_title : '';
+      this.form.title = this.$route.query.title ? this.$route.query.title : '';
       this.form.loc = this.$route.query.loc ? this.$route.query.loc : '';
       this.form.keywords = this.$route.query.keywords ? this.$route.query.keywords : '';
       this.form.domain = this.$route.query.domain ? this.$route.query.domain : '';
@@ -305,9 +283,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.header-card {
-  box-shadow: 0 0px 1px -2px rgba(0,0,17,21.2),0 0px 0px 0 rgba(0,0,0,-13.86),0 1px 3px 0 rgba(0,0,0,.12)!important
-}
-</style>
