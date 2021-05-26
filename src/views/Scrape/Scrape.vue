@@ -121,19 +121,67 @@
             </v-sheet>
           </v-col>
           <v-col cols="8">
-            <v-sheet
+            <v-card
                 min-height="70vh"
                 rounded="lg"
             >
-              <template>
+              <v-card-title>
+                Job Results
+                <v-spacer></v-spacer>
+                <v-btn
+                    @click.prevent="downloadExcel"
+                    rounded
+                    color="success"
+                    dark
+                    :disabled="!excelData.length"
+                >
+                  Download Excel
+                </v-btn>
+              </v-card-title>
+              <v-card-text style="position: relative">
                 <v-data-table
-                    dense
                     :headers="headers"
                     :items="excelData"
+                    hide-default-header
+                    hide-default-footer
+                    :page.sync="page"
+                    :items-per-page="itemsPerPage"
+                    @page-count="pageCount = $event"
+                    item-key="id"
                 >
+                  <template v-slot:body="{ items }">
+                    <tbody>
+                    <v-list-item
+                        v-for="(job, index) in items"
+                        :key="index"
+                        :href="job.JobUrl"
+                        target="_blank"
+                        style="background: #FAF9F9; margin-bottom: 8px"
+                    >
+                      <v-list-item-content>
+                        {{ job.JobTitle }} <span>{{ job.PostDate }}</span>
+                        <v-list-item-subtitle class="cut-text">
+                          <div class="company">{{ job.Company }}</div>
+                          <div class="location">{{ job.Location }}</div>
+                          <div class="location">{{ job.salaray }}</div>
+                          <div class="summary">{{ job.Summary }}</div>
+                        </v-list-item-subtitle>
+                      </v-list-item-content>
+                    </v-list-item>
+                    </tbody>
+                  </template>
                 </v-data-table>
-              </template>
-            </v-sheet>
+                <template v-if="excelData.length">
+                  <div class="text-center">
+                    <v-pagination
+                        v-model="page"
+                        :length="pageCount"
+                        :total-visible="7"
+                    ></v-pagination>
+                  </div>
+                </template>
+              </v-card-text>
+            </v-card>
           </v-col>
         </v-row>
       </v-container>
@@ -154,6 +202,9 @@ export default {
       'Profile',
       'Updates',
     ],
+    page: 1,
+    pageCount: 0,
+    itemsPerPage: 10,
     domains: [
       {label: 'indeed UAE', url: 'ae.indeed.com'},
       {label: 'linkedin', url: 'linkedin.com'},
@@ -224,17 +275,24 @@ export default {
           )
     },
     excelExport(file) {
-      var input = file;
-      var reader = new FileReader();
+      let input = file;
+      let reader = new FileReader();
       reader.onload = () => {
-        var fileData = reader.result;
-        var wb = XLSX.read(fileData, {type: 'binary'});
+        let fileData = reader.result;
+        let wb = XLSX.read(fileData, {type: 'binary'});
         wb.SheetNames.forEach((sheetName) => {
-          var rowObj = XLSX.utils.sheet_to_json(wb.Sheets[sheetName]);
+          let rowObj = XLSX.utils.sheet_to_json(wb.Sheets[sheetName]);
           this.excelData = rowObj
         })
       };
       reader.readAsBinaryString(input);
+    },
+    downloadExcel() {
+      let fileLink = document.createElement('a');
+      fileLink.href = this.exportLink;
+      fileLink.setAttribute('download', 'job.xlsx');
+      document.body.appendChild(fileLink);
+      fileLink.click();
     }
   },
   mounted() {
