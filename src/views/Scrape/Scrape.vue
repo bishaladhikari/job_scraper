@@ -39,7 +39,7 @@
         <v-row>
           <v-col cols="4">
             <v-sheet rounded="lg">
-              <v-card>
+              <v-card class="header-card">
                 <v-card-title>Create your search query</v-card-title>
               </v-card>
               <v-card-text>
@@ -247,3 +247,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.header-card {
+  box-shadow: 0 0px 1px -2px rgba(0,0,17,21.2),0 0px 0px 0 rgba(0,0,0,-13.86),0 1px 3px 0 rgba(0,0,0,.12)!important
+}
+</style>
