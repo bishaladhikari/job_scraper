@@ -243,7 +243,8 @@ export default {
       }
       this.excelData = [];
       this.exportLink = '';
-      axios.get(`https://scrapejobs.herokuapp.com/`, config)
+      // axios.get(`https://scrapejobs.herokuapp.com/`, config)
+      axios.get(`https://jobscraper.azurewebsites.net/`, config)
           .then(response => {
                 let blobn = new Blob([response.data], {type: 'vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8'});
                 this.excelExport(blobn);
@@ -289,3 +290,8 @@ export default {
   }
 }
 </script>
+<style scoped>
+.header-card {
+  box-shadow: 0 0px 1px -2px rgba(0,0,17,21.2),0 0px 0px 0 rgba(0,0,0,-13.86),0 1px 3px 0 rgba(0,0,0,.12)!important
+}
+</style>
