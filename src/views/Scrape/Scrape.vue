@@ -11,6 +11,7 @@
             color="grey darken-1"
             size="32"
         ></v-avatar>
+        SCRAPEJOBS
         <v-spacer></v-spacer>
         <v-responsive max-width="260">
           <v-text-field
@@ -23,7 +24,6 @@
         </v-responsive>
       </v-container>
     </v-app-bar>
-
     <v-main class="grey lighten-3 px-0 py-0">
       <v-container>
         <v-row>
@@ -122,6 +122,7 @@
                     rounded
                     height="6"
                 ></v-progress-linear>
+
                 <v-data-table
                     :headers="headers"
                     :items="excelData"
@@ -223,7 +224,8 @@ export default {
             'title': this.form.title,
             'loc': this.form.loc,
             'keywords': this.form.keywords,
-            'domain': this.form.domain
+            'domain': this.form.domain,
+            'search': true
           }
         });
       }
@@ -279,6 +281,10 @@ export default {
       this.form.loc = this.$route.query.loc ? this.$route.query.loc : '';
       this.form.keywords = this.$route.query.keywords ? this.$route.query.keywords : '';
       this.form.domain = this.$route.query.domain ? this.$route.query.domain : '';
+    }
+
+    if (this.$route.query.isSearch) {
+      this.getJobListing();
     }
   }
 }
