@@ -11,7 +11,7 @@
             color="grey darken-1"
             size="32"
         ></v-avatar>
-        SCRAPEJOBS
+        Impressive CV
         <v-spacer></v-spacer>
         <v-responsive max-width="260">
           <v-text-field
@@ -271,7 +271,7 @@ export default {
     downloadExcel() {
       let fileLink = document.createElement('a');
       fileLink.href = this.exportLink;
-      fileLink.setAttribute('download', 'job.xlsx');
+      fileLink.setAttribute('download', this.$route.query.title + '.xlsx');
       document.body.appendChild(fileLink);
       fileLink.click();
     }
@@ -292,6 +292,6 @@ export default {
 </script>
 <style scoped>
 .header-card {
-  box-shadow: 0 0px 1px -2px rgba(0,0,17,21.2),0 0px 0px 0 rgba(0,0,0,-13.86),0 1px 3px 0 rgba(0,0,0,.12)!important
+  box-shadow: 0 0px 1px -2px rgba(0, 0, 17, 21.2), 0 0px 0px 0 rgba(0, 0, 0, -13.86), 0 1px 3px 0 rgba(0, 0, 0, .12) !important
 }
 </style>
