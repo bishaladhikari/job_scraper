@@ -22,6 +22,22 @@
               solo-inverted
           ></v-text-field>
         </v-responsive>
+        <v-btn
+            class="mx-2"
+            fab
+            dark
+            small
+            color="danger"
+            @click.prevent="logout"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" stroke-width="2" stroke="currentColor"
+               fill="none"
+               stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2"></path>
+            <path d="M7 12h14l-3 -3m0 6l3 -3"></path>
+          </svg>
+        </v-btn>
       </v-container>
     </v-app-bar>
     <v-main class="grey lighten-3 px-0 py-0">
@@ -177,6 +193,9 @@
 import * as XLSX from "xlsx";
 
 const axios = require('axios').default;
+import firebase from "firebase/app";
+
+require("firebase/auth");
 
 export default {
   data: () => ({
@@ -274,6 +293,11 @@ export default {
       fileLink.setAttribute('download', this.$route.query.title + '.xlsx');
       document.body.appendChild(fileLink);
       fileLink.click();
+    },
+    logout() {
+      firebase.auth().signOut().then(res => {
+        this.$router.replace({name: "login"});
+      })
     }
   },
   mounted() {
