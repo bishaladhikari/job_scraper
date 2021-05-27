@@ -283,7 +283,7 @@ export default {
       this.form.domain = this.$route.query.domain ? this.$route.query.domain : '';
     }
 
-    if (this.$route.query.isSearch) {
+    if (this.$route.query.search) {
       this.getJobListing();
     }
   }
