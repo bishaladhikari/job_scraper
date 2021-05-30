@@ -79,10 +79,10 @@ export default {
             'title': this.form.title,
             'loc': this.form.loc,
             'keywords': this.form.keywords,
-            'search': true
           }
         });
       }
+      this.$route.query.search = true;
       this.$router.push({name: 'search', query: {...this.$route.query}});
     },
   },

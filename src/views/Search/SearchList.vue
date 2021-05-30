@@ -4,7 +4,7 @@
       rounded="lg"
   >
     <v-card-title>
-      <v-btn depressed @click.prevent="$router.push({name:'welcome',query:{...$route.query}})">
+      <v-btn depressed @click.prevent="backToSearch">
         Back
       </v-btn>
       <v-spacer></v-spacer>
@@ -137,9 +137,7 @@ export default {
         let fileData = reader.result;
         let wb = XLSX.read(fileData, {type: 'binary'});
         wb.SheetNames.forEach((sheetName) => {
-          console.log('hello');
           let rowObj = XLSX.utils.sheet_to_json(wb.Sheets[sheetName]);
-          console.log(rowObj);
           this.excelData = rowObj
         })
       };
@@ -152,6 +150,10 @@ export default {
       document.body.appendChild(fileLink);
       fileLink.click();
     },
+    backToSearch() {
+      this.$route.query.search = false;
+      this.$router.push({name: 'welcome', query: {...this.$route.query,}})
+    }
   },
   mounted() {
     if (this.$route.query.search) {
@@ -163,7 +165,7 @@ export default {
 
 
 <style scoped>
-.summary{
+.summary {
   white-space: break-spaces;
 }
 </style>
