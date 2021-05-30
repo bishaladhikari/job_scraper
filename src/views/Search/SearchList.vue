@@ -160,3 +160,10 @@ export default {
   }
 }
 </script>
+
+
+<style scoped>
+.summary{
+  white-space: break-spaces;
+}
+</style>

@@ -92,6 +92,10 @@ export default {
       this.form.loc = this.$route.query.loc ? this.$route.query.loc : '';
       this.form.keywords = this.$route.query.keywords ? this.$route.query.keywords : '';
     }
+
+    if (this.$route.query.search) {
+      this.$router.push({name: 'search', query: {...this.$route.query}})
+    }
   }
 }
 </script>
