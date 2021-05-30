@@ -5,6 +5,8 @@ import "../plugins/firebaseInit";
 import Login from '../views/Login.vue'
 import ScrapeIndex from '../views/Scrape/Scrape.vue'
 import firebase from "firebase";
+import Search from '../views/Search/Search'
+import SearchList from '../views/Search/SearchList'
 
 Vue.use(VueRouter)
 
@@ -12,7 +14,12 @@ const routes = [
     {
         path: '/',
         name: 'welcome',
-        component: Login
+        component: Search
+    },
+    {
+        path: '/search',
+        name: 'search',
+        component: SearchList
     },
     {
         path: '/login',
