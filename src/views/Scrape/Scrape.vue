@@ -118,7 +118,7 @@
                 rounded="lg"
             >
               <v-card-title>
-                Job Results
+                {{ $route.query.title }}
                 <v-spacer></v-spacer>
                 <v-btn
                     @click.prevent="downloadExcel"
