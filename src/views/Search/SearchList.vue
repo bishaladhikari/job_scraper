@@ -4,20 +4,22 @@
       min-height="100vh"
       rounded="lg"
   >
-    <v-card-title >
-      <v-btn depressed @click.prevent="backToSearch">
-        Back to search
-      </v-btn>
-      <v-spacer></v-spacer>
-      <v-spacer></v-spacer>
-      <v-btn
-          @click.prevent="downloadExcel"
-          color="success"
-          dark
-          :disabled="!excelData.length"
-      >
-        Download Excel
-      </v-btn>
+    <v-card-title class="pa-0" >
+      <v-toolbar flat>
+        <v-btn depressed @click.prevent="backToSearch">
+          Back to search
+        </v-btn>
+        <v-spacer></v-spacer>
+        <v-btn
+            @click.prevent="downloadExcel"
+            color="success"
+            dark
+            :disabled="!excelData.length"
+        >
+          Download Excel
+        </v-btn>
+      </v-toolbar>
+
     </v-card-title>
     <v-card-subtitle>
       <h3 class="mt-5">{{ $route.query.title }} jobs in {{$route.query.loc}}</h3>
@@ -187,5 +189,10 @@ export default {
 }
 .header-card {
   box-shadow: 0 0px 1px -2px rgba(0, 0, 17, 21.2), 0 0px 0px 0 rgba(0, 0, 0, -13.86), 0 1px 3px 0 rgba(0, 0, 0, .12) !important
+}
+.v-card__title {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 999 !important;
 }
 </style>
