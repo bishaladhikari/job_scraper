@@ -85,6 +85,13 @@ export default {
       }
       this.$router.push({name: 'search', query: {...this.$route.query}});
     },
+  },
+  mounted() {
+    if (this.$route.query) {
+      this.form.title = this.$route.query.title ? this.$route.query.title : '';
+      this.form.loc = this.$route.query.loc ? this.$route.query.loc : '';
+      this.form.keywords = this.$route.query.keywords ? this.$route.query.keywords : '';
+    }
   }
 }
 </script>

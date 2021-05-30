@@ -4,6 +4,10 @@
       rounded="lg"
   >
     <v-card-title>
+      <v-btn depressed @click.prevent="$router.push({name:'welcome',query:{...$route.query}})">
+        Back
+      </v-btn>
+      <v-spacer></v-spacer>
       Job Results
       <v-spacer></v-spacer>
       <v-btn
@@ -72,6 +76,7 @@
 
 <script>
 import * as XLSX from "xlsx";
+
 const axios = require('axios').default;
 
 export default {
@@ -108,7 +113,7 @@ export default {
           'Access-Control-Allow-Origin': '*',
           'Content-type': 'application/json',
         },
-        params: {...this.form},
+        params: {...this.$route.query},
         responseType: 'arraybuffer'
       }
       this.excelData = [];
@@ -132,7 +137,9 @@ export default {
         let fileData = reader.result;
         let wb = XLSX.read(fileData, {type: 'binary'});
         wb.SheetNames.forEach((sheetName) => {
+          console.log('hello');
           let rowObj = XLSX.utils.sheet_to_json(wb.Sheets[sheetName]);
+          console.log(rowObj);
           this.excelData = rowObj
         })
       };
