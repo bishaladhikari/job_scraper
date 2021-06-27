@@ -1,25 +1,31 @@
 <template>
   <v-card
+      class="header-card"
       min-height="100vh"
       rounded="lg"
   >
-    <v-card-title>
-      <v-btn depressed @click.prevent="backToSearch">
-        Back
-      </v-btn>
-      <v-spacer></v-spacer>
-      Job Results
-      <v-spacer></v-spacer>
-      <v-btn
-          @click.prevent="downloadExcel"
-          rounded
-          color="success"
-          dark
-          :disabled="!excelData.length"
-      >
-        Download Excel
-      </v-btn>
+    <v-card-title class="pa-0" >
+      <v-toolbar flat>
+        <v-btn depressed @click.prevent="backToSearch">
+          Back to search
+        </v-btn>
+        <v-spacer></v-spacer>
+        <v-btn
+            @click.prevent="downloadExcel"
+            color="success"
+            dark
+            :disabled="!excelData.length"
+        >
+          Download Excel
+        </v-btn>
+      </v-toolbar>
+
     </v-card-title>
+    <v-card-subtitle>
+      <h3 class="mt-5">{{ $route.query.title }} jobs in {{$route.query.loc}}</h3>
+      <p v-if="!showLoading">Showing top {{excelData.length}} results</p>
+    </v-card-subtitle>
+
     <v-card-text style="position: relative">
       <v-progress-linear
           v-if="showLoading"
@@ -49,13 +55,26 @@
               style="background: #FAF9F9; margin-bottom: 8px"
           >
             <v-list-item-content>
-              {{ job.JobTitle }} <span>{{ job.PostDate }}</span>
-              <v-list-item-subtitle class="cut-text">
-                <div class="company">{{ job.Company }}</div>
-                <div class="location">{{ job.Location }}</div>
-                <div class="location">{{ job.salaray }}</div>
-                <div class="summary">{{ job.Summary }}</div>
-              </v-list-item-subtitle>
+              <v-row>
+                <v-col class="col-2">
+                  <img height="40px" width="40px"
+                       :src="job.JobUrl.includes('linkedin')?
+                  'https://ricardoreadingmouse.com.au/wp-content/uploads/2018/04/linkedin-logo-copy.png':
+                  'https://i2.wp.com/iaccessibility.net/wp-content/uploads/2018/04/indeed-employer-logo.png?fit=300%2C300&ssl=1'
+
+"/>
+                </v-col>
+                <v-col class="col-10">
+                  <h3>{{ job.JobTitle }}</h3> <span>{{ job.PostDate }}</span>
+                  <v-list-item-subtitle class="cut-text">
+                    <div class="company">{{ job.Company }}</div>
+                    <div class="location">{{ job.Location }}</div>
+                    <div class="location">{{ job.salaray }}</div>
+                    <div class="summary">{{ job.Summary }}</div>
+                  </v-list-item-subtitle>
+                </v-col>
+              </v-row>
+
             </v-list-item-content>
           </v-list-item>
           </tbody>
@@ -167,5 +186,13 @@ export default {
 <style scoped>
 .summary {
   white-space: break-spaces;
+}
+.header-card {
+  box-shadow: 0 0px 1px -2px rgba(0, 0, 17, 21.2), 0 0px 0px 0 rgba(0, 0, 0, -13.86), 0 1px 3px 0 rgba(0, 0, 0, .12) !important
+}
+.v-card__title {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 999 !important;
 }
 </style>
