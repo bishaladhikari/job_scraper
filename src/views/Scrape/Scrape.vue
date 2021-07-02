@@ -262,7 +262,7 @@ export default {
       }
       this.excelData = [];
       this.exportLink = '';
-      axios.get(`http://ec2-3-133-131-88.us-east-2.compute.amazonaws.com/`, config)
+      axios.get(`https://stunningcv.com/`, config)
       // axios.get(`https://scrapejobs.herokuapp.com/`, config)
       // axios.get(`https://jobscraper.azurewebsites.net/`, config)
           .then(response => {
