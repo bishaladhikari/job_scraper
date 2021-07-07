@@ -85,8 +85,9 @@ export default {
         keywords: '',
       },
       domains: [
-        {label: 'LinkedIn', value: 'linkedin.com'},
-        {label: 'Indeed', value: 'ae.indeed.com'},
+        {label: 'Indeed', value: 'indeed'},
+        {label: 'Gulf Talent', value: 'gulftalent'},
+        {label: 'LinkedIn', value: 'linkedin'},
       ]
     }
   },
