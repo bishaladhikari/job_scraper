@@ -53,21 +53,6 @@
           <div class="form__input-indicator"></div>
         </div>
       </div>
-      <div class="col-md-12 col-sm-12">
-        <label class="form__label">
-          <div class="form_label-title">Include Keywords</div>
-        </label>
-        <div class="form__input">
-          <input
-              v-model="form.keywords"
-              placeholder="Enter keywords or leave blank"
-              autocomplete="off"
-              name="keywords"
-              class="form__input-box"
-          />
-          <div class="form__input-indicator"></div>
-        </div>
-      </div>
       <v-btn block color="primary" @click.prevent="search">Search</v-btn>
     </v-card-text>
   </v-sheet>
@@ -82,7 +67,6 @@ export default {
         domain: '',
         title: '',
         loc: '',
-        keywords: '',
       },
       domains: [
         {label: 'Indeed', value: 'indeed'},
@@ -95,14 +79,12 @@ export default {
     search() {
       if (this.form.title !== this.$route.query.title ||
           this.form.loc !== this.$route.query.loc ||
-          this.form.domain !== this.$route.query.domain ||
-          this.form.keywords !== this.$route.query.keywords) {
+          this.form.domain !== this.$route.query.domain) {
         this.$router.push({
           query: {
             ...this.$route.query,
             'title': this.form.title,
             'loc': this.form.loc,
-            'keywords': this.form.keywords,
             'domain': this.form.domain,
           }
         });
@@ -115,8 +97,7 @@ export default {
     if (this.$route.query) {
       this.form.title = this.$route.query.title ? this.$route.query.title : '';
       this.form.loc = this.$route.query.loc ? this.$route.query.loc : '';
-      this.form.keywords = this.$route.query.keywords ? this.$route.query.keywords : '';
-      this.form.domain = this.$route.query.domain ? this.$route.query.domain : 'ae.indeed.com';
+      this.form.domain = this.$route.query.domain ? this.$route.query.domain : 'indeed';
     }
 
     if (this.$route.query.search) {
