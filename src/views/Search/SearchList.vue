@@ -137,7 +137,8 @@ export default {
       }
       this.excelData = [];
       this.exportLink = '';
-      axios.get(`https://scrapejobs.herokuapp.com/`, config)
+      // axios.get(`https://scrapejobs.herokuapp.com/`, config)
+       axios.get(`http://127.0.0.1:5000/`, config)
       // axios.get(`https://jobscraper.azurewebsites.net/`, config)
           .then(response => {
                 let blobn = new Blob([response.data], {type: 'vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8'});
@@ -156,8 +157,7 @@ export default {
         let fileData = reader.result;
         let wb = XLSX.read(fileData, {type: 'binary'});
         wb.SheetNames.forEach((sheetName) => {
-          let rowObj = XLSX.utils.sheet_to_json(wb.Sheets[sheetName]);
-          this.excelData = rowObj
+          this.excelData = XLSX.utils.sheet_to_json(wb.Sheets[sheetName]);
         })
       };
       reader.readAsBinaryString(input);

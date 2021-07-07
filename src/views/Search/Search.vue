@@ -6,6 +6,24 @@
     <v-card-text>
       <div class="col-md-12 col-sm-12">
         <label class="form__label">
+          <div class="form_label-title">Domain</div>
+        </label>
+        <div class="form__input">
+          <select
+              v-model="form.domain"
+              autocomplete="off"
+              name="domain"
+              class="form__input-box"
+          >
+            <option value="" selected disabled>-- Select Domain --</option>
+            <option v-for="domain in domains" :value="domain.value">
+              {{ domain.label }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-12 col-sm-12">
+        <label class="form__label">
           <div class="form_label-title">Job Title</div>
         </label>
         <div class="form__input">
@@ -66,12 +84,17 @@ export default {
         loc: '',
         keywords: '',
       },
+      domains: [
+        {label: 'LinkedIn', value: 'linkedin.com'},
+        {label: 'Indeed', value: 'ae.indeed.com'},
+      ]
     }
   },
   methods: {
     search() {
       if (this.form.title !== this.$route.query.title ||
           this.form.loc !== this.$route.query.loc ||
+          this.form.domain !== this.$route.query.domain ||
           this.form.keywords !== this.$route.query.keywords) {
         this.$router.push({
           query: {
@@ -79,6 +102,7 @@ export default {
             'title': this.form.title,
             'loc': this.form.loc,
             'keywords': this.form.keywords,
+            'domain': this.form.domain,
           }
         });
       }
@@ -91,6 +115,7 @@ export default {
       this.form.title = this.$route.query.title ? this.$route.query.title : '';
       this.form.loc = this.$route.query.loc ? this.$route.query.loc : '';
       this.form.keywords = this.$route.query.keywords ? this.$route.query.keywords : '';
+      this.form.domain = this.$route.query.domain ? this.$route.query.domain : 'ae.indeed.com';
     }
 
     if (this.$route.query.search) {
