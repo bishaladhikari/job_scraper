@@ -23,7 +23,8 @@
     </v-card-title>
     <v-card-subtitle>
       <h3 class="mt-5">{{ $route.query.title }} jobs in {{ $route.query.loc }}</h3>
-      <p v-if="!showLoading">Showing top {{ excelData.length }} results</p>
+      <span v-if="$route.query.date_posted">Past {{$route.query.date_posted}} days</span> <a href="javascript:" @click.prevent="backToSearch">change</a>
+      <p v-if="!showLoading">Showing top {{ excelData.length }} results from {{$route.query.domain}}</p>
     </v-card-subtitle>
 
     <v-card-text style="position: relative">
@@ -137,8 +138,8 @@ export default {
       }
       this.excelData = [];
       this.exportLink = '';
-      axios.get(`https://stunningcv.com/`, config)
-      // axios.get(`http://127.0.0.1:5000/`, config)
+      // axios.get(`https://stunningcv.com/`, config)
+      axios.get(`http://127.0.0.1:5000/`, config)
           // axios.get(`https://jobscraper.azurewebsites.net/`, config)
           .then(response => {
                 let blobn = new Blob([response.data], {type: 'vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8'});
