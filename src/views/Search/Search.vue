@@ -94,9 +94,9 @@ export default {
       ],
       dateOptions: [
         { label: "All Time", value: null },
-        { label: "30 Days", value: "30" },
-        { label: "60 Days", value: "60" },
-        { label: "90 Days", value: "90" },
+        { label: "Last 30 Days", value: "30" },
+        { label: "Last 60 Days", value: "60" },
+        { label: "Last 90 Days", value: "90" },
       ],
     };
   },
