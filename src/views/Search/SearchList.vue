@@ -138,8 +138,8 @@ export default {
       }
       this.excelData = [];
       this.exportLink = '';
-      // axios.get(`https://stunningcv.com/`, config)
-      axios.get(`http://127.0.0.1:5000/`, config)
+      axios.get(`https://stunningcv.com/`, config)
+      // axios.get(`http://127.0.0.1:5000/`, config)
           // axios.get(`https://jobscraper.azurewebsites.net/`, config)
           .then(response => {
                 let blobn = new Blob([response.data], {type: 'vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8'});
