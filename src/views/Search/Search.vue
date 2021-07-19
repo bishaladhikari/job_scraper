@@ -1,6 +1,6 @@
 <template>
   <v-sheet rounded="lg">
-    <v-card class="header-card">
+    <v-card class="header-card" style="margin:auto">
       <v-card-title>Create your search query</v-card-title>
     </v-card>
     <v-card-text>
@@ -94,9 +94,9 @@ export default {
       ],
       dateOptions: [
         { label: "All Time", value: null },
-        { label: "Last 30 Days", value: "30" },
-        { label: "Last 60 Days", value: "60" },
-        { label: "Last 90 Days", value: "90" },
+        { label: "Past 30 Days", value: "30" },
+        { label: "Past 60 Days", value: "60" },
+        { label: "Past 90 Days", value: "90" },
       ],
     };
   },
