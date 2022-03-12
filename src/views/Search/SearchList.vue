@@ -138,7 +138,7 @@ export default {
       }
       this.excelData = [];
       this.exportLink = '';
-      axios.get(`https://stunningcv.com/`, config)
+      axios.get(`https://scrape.stunningcv.com/`, config)
       // axios.get(`http://127.0.0.1:5000/`, config)
           // axios.get(`https://jobscraper.azurewebsites.net/`, config)
           .then(response => {
