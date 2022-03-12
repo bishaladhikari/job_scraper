@@ -59,7 +59,7 @@
               <v-row>
                 <v-col class="col-2">
                   <img height="40px" width="40px" v-if="job.JobUrl.includes('linkedin')"
-                       src='https://ricardoreadingmouse.com.au/wp-content/uploads/2018/04/linkedin-logo-copy.png'/>
+                       src='https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png'/>
                   <img height="40px" width="40px" v-else-if="job.JobUrl.includes('indeed')"
                        src='https://i2.wp.com/iaccessibility.net/wp-content/uploads/2018/04/indeed-employer-logo.png?fit=300%2C300&ssl=1'/>
                   <img height="40px" width="40px" v-else

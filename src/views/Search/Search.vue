@@ -91,6 +91,8 @@ export default {
         { label: "Indeed", value: "indeed" },
         { label: "Gulf Talent", value: "gulftalent" },
         { label: "LinkedIn", value: "linkedin" },
+        // { label: "Monster Gulf", value: "monstergulf" },
+        // { label: "Carret Jet", value: "careerjet" },
       ],
       dateOptions: [
         { label: "All Time", value: null },
